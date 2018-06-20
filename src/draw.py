@@ -9,14 +9,19 @@ from graph import *
 
 graph_data = Graph()
 graph_data.debug_create_test_data()
-print(graph_data.vertexes)
+#print(graph_data.vertexes)
 
-N = 2
+N = len(graph_data.vertexes)
 node_indices = list(range(N))
 
+print('hello')
+color_list = []
+for vertex in graph_data.vertexes:
+    color_list.append(vertex.color)
+
+#plot = figure(title='Graph Layout Demonstration', x_range=(0, 500), y_range=(0, 500), tools='', toolbar_location=None)
 plot = figure(title='Graph Layout Demonstration', x_range=(-1.1, 1.1), y_range=(-1.1, 1.1),
               tools='', toolbar_location=None)
-
 graph = GraphRenderer()
 
 graph.node_renderer.data_source.add(node_indices, 'index')
@@ -28,9 +33,13 @@ graph.edge_renderer.data_source.data = dict(
     end=node_indices)
 
 # start of layout code
+
 circ = [i*2*math.pi/8 for i in node_indices]
 x = [math.cos(i) for i in circ]
 y = [math.sin(i) for i in circ]
+
+#x = [v.pos['x'] for v in graph_data.vertexes]
+#y = [v.pos['y'] for v in graph_data.vertexes]
 
 graph_layout = dict(zip(node_indices, zip(x, y)))
 graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
