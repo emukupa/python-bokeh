@@ -5,7 +5,13 @@ from bokeh.plotting import figure
 from bokeh.models import GraphRenderer, StaticLayoutProvider, Oval
 from bokeh.palettes import Spectral8
 
-N = 8
+from graph import *
+
+graph_data = Graph()
+graph_data.debug_create_test_data()
+print(graph_data.vertexes)
+
+N = 2
 node_indices = list(range(N))
 
 plot = figure(title='Graph Layout Demonstration', x_range=(-1.1, 1.1), y_range=(-1.1, 1.1),
