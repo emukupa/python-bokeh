@@ -7,14 +7,14 @@ from bokeh.palettes import Spectral8
 
 from graph import *
 
-WIDTH = 600
-HEIGHT = 600  # TODO make a rectangle instead of square 640 x 400
+WIDTH = 800
+HEIGHT = 800  # TODO make a rectangle instead of square 640 x 400
 CIRCLE_SIZE = 30
 
 graph_data = Graph()
 # graph_data.debug_create_test_data()
-graph_data.randomize(4, 4)
-graph_data.bfs(graph_data.vertexes[0])
+graph_data.randomize(3, 5, 150, 60)
+graph_data.get_connected_components()
 
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
@@ -22,7 +22,7 @@ node_indices = list(range(N))
 label_source = ColumnDataSource(data=dict(x=[vertex.pos['x'] for vertex in graph_data.vertexes], y=[
                                 vertex.pos['y'] for vertex in graph_data.vertexes], value=[vertex.value for vertex in graph_data.vertexes]))
 #labels = LabelSet(x='x', y='y', text='value', level='glyph', x_offset=-6, y_offset=-10, source=label_source, render_mode='canvas')
-labels = LabelSet(x='x', y='y', text='value', level='glyph',
+labels = LabelSet(x='x', y='y', text='value', level='overlay',
                   text_align='center', text_baseline='middle', source=label_source, render_mode='canvas')
 
 start = []
@@ -39,9 +39,9 @@ for i, vertex in enumerate(graph_data.vertexes):
 #plot = figure(title='Graph Layout Demonstration', x_range=(-1.1, 1.1), y_range=(-1.1, 1.1), tools='', toolbar_location=None)
 plot = figure(x_range=(
     0, WIDTH), y_range=(0, HEIGHT), tools='', toolbar_location=None)
-plot.axis.visible = False
-plot.grid.grid_line_color = None
-plot.outline_line_color = None
+#plot.axis.visible = False
+#plot.grid.grid_line_color = None
+#plot.outline_line_color = None
 graph = GraphRenderer()
 
 graph.node_renderer.data_source.add(node_indices, 'index')
